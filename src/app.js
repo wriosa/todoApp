@@ -148,6 +148,7 @@ app.delete('/users/:id', async (req, res) => {
             where: { id }
         });
         res.status(200).json(result);
+        //validar que el usuario no tenga tareas
     } catch (error) {
         res.status(400).json(error.message);
 
