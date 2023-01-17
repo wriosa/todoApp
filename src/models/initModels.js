@@ -20,6 +20,12 @@ const initModels = () => {
     TodosCategories.belongsTo(Categories, { as: "category", foreignKey: "categories_id" });
     Categories.hasMany(TodosCategories, { as: "task", foreignKey: "categories_id" });
 
+    Categories.belongsTo(Users, { as: "author", foreignKey: 'user_id' });
+    Users.hasMany(Categories, { as: 'category', foreignKey: 'user_id' });
+
+
+
+
 }
 
 module.exports = initModels;

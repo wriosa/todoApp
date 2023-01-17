@@ -6,11 +6,14 @@ const initModels = require('./models/initModels');
 const Users = require('./models/users.model');
 const Todos = require('./models/todos.model');
 const userRoutes = require('./routes/users.routes');
-
+const todosRoutes = require('./routes/todos.routes');
+const authRoutes = require('./routes/auth.routes')
+const cors = require('cors');
 //crear una instancia de express
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 const PORT = 8000;
 //probando la conexion a la base de datos
@@ -22,13 +25,15 @@ initModels();
 //vamos a usar el metodo sync de nuestra bd
 //usar el metodo syn para sincronizar la informacion de la base de datos
 //devuelve una promesa y la resolvemos con then
-db.sync({ alter: true })//devuelve la promesa
+db.sync({ force: false })//devuelve la promesa
     .then(() => console.log("Base de datos sincronizada"))
     .catch((error) => console.log(error))
 app.get('/', (req, res) => {
     res.status(200).json({ message: "Bienvenido al servidor" });
 });
 app.use('/api/v1', userRoutes)
+app.use('/api/v1', todosRoutes)
+app.use('/api/v1', authRoutes)
 
 //definir las rutas de nuestros endpoints(ep)
 //todas las consultas de usuarios

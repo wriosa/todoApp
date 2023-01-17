@@ -21,6 +21,26 @@ const getUserById = async (req, res) => {
     // res.json({ message: "Obteniendo todos los usuarios" })
 }
 
+const getUserWithTasks = async (req,res)=>{
+    try {
+        const {id} = req.params;
+        const result = await UserServices.getWithTasks(id);
+        res.json(result);//por defecto se responde con un estatus 200
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
+}
+
+const getUserWithCategories = async (req,res)=>{
+    try {
+        const {id} = req.params;
+        const result = await UserServices.getWithCategories(id);
+        res.json(result);//por defecto se responde con un estatus 200
+    } catch (error) {
+        res.status(400).json(error.message); 
+    } 
+}
+
 const createUser = async (req, res) => {
     try {
         const newUser = req.body;
@@ -35,5 +55,7 @@ const createUser = async (req, res) => {
 module.exports = {
     getAllUsers,
     getUserById,
-    createUser
+    createUser,
+    getUserWithTasks,
+    getUserWithCategories
 }
