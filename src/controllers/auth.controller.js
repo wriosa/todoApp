@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const AuthService = require('../services/auth.services');
+require('dotenv').config()
 
 const userLogin = async (req,res)=>{
     try {
@@ -13,9 +14,9 @@ const userLogin = async (req,res)=>{
                 id: response.result.id
             }
             //firmamos un nuevo token
-            const token = jwt.sign(data,'shalala shalala', {algorithm: 'HS512', expiresIn: "1m"});
+            const token = jwt.sign(data,process.env.JWT_SECRET, {algorithm: 'HS512', expiresIn: "1m"});
             data.token = token;
-            console.log(data);
+            console.log(data); 
             res.json(data);       
 
         }else{
